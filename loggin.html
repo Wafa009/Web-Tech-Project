@@ -122,19 +122,31 @@
                 <label for="dob">Date of Birth</label>
                 <input type="date" id="dob" name="dob" required>
 
-                <label for="country">Country</label>
-<select id="country" name="country">
-    <option value="usa">United States</option>
-    <option value="canada">Canada</option>
-    <option value="uk">United Kingdom</option>
-    <option value="germany">Germany</option>
-    <option value="france">France</option>
-    <option value="australia">Australia</option>
-    <option value="japan">Japan</option>
-    <option value="brazil">Brazil</option>
-    <option value="bangladesh">Bangladesh</option>
-    <option value="south_africa">South Africa</option>
-</select>
+                Country:
+                <select id="country" required>
+                    <option value="">Select Country</option>
+                    <option value="USA">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Australia">Australia</option>
+                    <option value="France">France</option>
+                    <option value="Japan">Japan</option>
+                    <option value="China">China</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Switzerland">Switzerland</option>
+                </select>
 <div style="text-align: left;">
                 <legend> <label for="gender">Gender</label></legend><br>
                 <input type="radio" id="male" name="gender" value="male">Male
@@ -164,6 +176,83 @@
             <div class="bottom"></div>
         </div>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+    
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+    
+                const fullName = document.getElementById('fullname').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm_password').value;
+                const dob = document.getElementById('dob').value;
+                const gender = document.querySelector('input[name="gender"]:checked');
+                const terms = document.querySelector('input[name="tc"]:checked');
+    
+                let errorMessages = [];
+    
+        
+                if (fullName === "") {
+                    errorMessages.push("Full Name is required.");
+                } else if (!/^[A-Za-z.\-\s]+$/.test(fullName)) {
+                    errorMessages.push("Full Name can only contain letters, dot (.), dash (-), and spaces.");
+                }
+    
+                
+                const aiubPattern = /^\d{2}-\d{5}-\d@student\.aiub\.edu$/;
+                if (email === "" || !aiubPattern.test(email)) {
+                    errorMessages.push("Email must follow AIUB format: XX-XXXXX-X@student.aiub.edu");
+                }
+    
+                
+                const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+                if (password.length < 8) {
+                    errorMessages.push("Password must be at least 8 characters.");
+                } else if (!passwordPattern.test(password)) {
+                    errorMessages.push("Password must contain uppercase, lowercase, number, and special character.");
+                }
+    
+                
+                if (password !== confirmPassword) {
+                    errorMessages.push("Passwords do not match.");
+                }
+    
+                
+                if (dob === "") {
+                    errorMessages.push("Date of Birth is required.");
+                } else {
+                    const today = new Date();
+                    const birthDate = new Date(dob);
+                    const age = today.getFullYear() - birthDate.getFullYear();
+                    const m = today.getMonth() - birthDate.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    if (age < 18) {
+                        errorMessages.push("You must be at least 18 years old.");
+                    }
+                }
+    
+                
+                if (!gender) {
+                    errorMessages.push("Please select a gender.");
+                }
+    
+                if (!terms) {
+                    errorMessages.push("You must agree to the Terms & Conditions.");
+                }
+    
+                if (errorMessages.length > 0) {
+                    alert(errorMessages.join("\n"));
+                } else {
+                    alert("Form submitted successfully!");
+                    form.submit();
+                }
+            });
+        });
+    </script>
+    
 </body>
 </html>
