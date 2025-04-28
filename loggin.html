@@ -35,34 +35,40 @@
             margin-top: 10px;
         }
 
-        .container {
-            display: flex;
-            width: 40%;
-            height: 1000px;
-            margin-top: 20px;
-            border: 2px solid black;
-        }
+.container {
+    display: flex;
+    width: 30%;
+    height: 1000px;
+    margin-top: 20px;
+    border: 2px solid black;
+    background-color: #988091; 
+}
 
-        .left {
-            flex: 1;
-            border-right: 2px solid black;
-            padding: 20px;
-        }
+.left {
+    flex: 1;
+    border-right: 2px solid black;
+    padding: 20px;
+    background-color: #b9c3ef; 
+}
 
-        .right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+.right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #85ace6; 
+}
 
-        .top {
-            flex: 1;
-            border-bottom: 2px solid black;
-        }
+.top {
+    flex: 7;
+    border-bottom: 2px solid black;
+    background-color: #8aa4ef; 
+}
 
-        .bottom {
-            flex: 1;
-        }
+.bottom {
+    flex: 3;
+    background-color: #808cdb; 
+}
+
 
         form {
             display: flex;
@@ -95,12 +101,21 @@
         button:hover {
             background-color: #0056b3;
         }
+        .profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
     </style>
 </head>
 <body>
 
-    <div class="profile"></div>
-    <h4>Title</h4>
+    <div class="profile">
+        <img src="logo.png" alt="Profile">
+    </div>
+    <h1>TweetNest</h1>
 
     <div class="container">
         <div class="left">
